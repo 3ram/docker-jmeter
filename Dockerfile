@@ -10,9 +10,9 @@ ENV	JMETER_BIN	${JMETER_HOME}/bin
 ENV	JMETER_DOWNLOAD_URL  https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
 
 
-ENV MAVEN_REPOSITORY                https://repo1.maven.org/maven2
+ENV MAVEN_REPOSITORY	https://repo1.maven.org/maven2
 ENV MYSQL_CONNECTOR_VERSION         8.0.23
-ENV MYSQL_CONNECTOR_DOWNLOAD_URL    ${MAVEN_REPOSITORY}/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar
+ENV MYSQL_CONNECTOR_DOWNLOAD_URL    https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.23/mysql-connector-java-8.0.23.jar
 ENV MYSQL_CONNECTOR_PATH			${JMETER_HOME}/lib
 ENV MYSQL_CONNECTOR_SHA256          ff7d5b402afd39c12787471505a33a304103b238ec1b7a44e8936d3329da7535
 
@@ -32,7 +32,7 @@ RUN    apk update \
 	&& mkdir -p /opt  \
 	&& tar -xzf /tmp/dependencies/apache-jmeter-${JMETER_VERSION}.tgz -C /opt  \
 	&& rm -rf /tmp/dependencies \
-	&& curl -Lso ${MYSQL_CONNECTOR_PATH}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar ${MYSQL_CONNECTOR_DOWNLOAD_URL} 2> install.log  \
+	&& curl -L --silent ${MYSQL_CONNECTOR_DOWNLOAD_URL} > opt/apache-jmeter-${JMETER_VERSION}/lib/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar  
 
 
  # TODO: plugins (later)
